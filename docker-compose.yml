@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    build:
+      context: . #where we want to all the files of this images to be pulled from, same directory as this file so '.'
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app #'.' indicates folder in local machine, ":" means mapped to, "/app" folder to map to
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
