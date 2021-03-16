@@ -1,0 +1,10 @@
+sudo: required #sudo permissions required for travis
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t adamalad/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run adamalad/docker-react npm run test -- -- coverage #-- -- coverage is added so the test exists and doesn't hang
