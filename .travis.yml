@@ -4,10 +4,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t adamalad/docker-react -f Dockerfile.dev .
+  - docker build -t adamalad/docker-react -f Dockerfile.dev . #script used to build our project
 
 script:
-  - docker run -e CI=true adamalad/docker-react npm run test
+  - docker run -e CI=true adamalad/docker-react npm run test #script used to run test
 
 deploy:
   provider: elasticbeanstalk #travis ci already configured to deploy app to various providers
@@ -19,5 +19,4 @@ deploy:
   on:
     branch: master #only deploy when we push code to the master branch
   access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
+  secret_access_key: $AWS_SECRET_KEY
