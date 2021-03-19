@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true adamalad/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk #travis ci already configured to deploy app to various providers
+  region: "eu-west-1"
+  app: "docker-react" #name of app on elasticbeanstalk
+  env: "Dockerreact-env" #name of enviroment on elasticbeanstalk
+  bucket_name: "elasticbeanstalk-eu-west-1-544420306636" #name of file that holds all our files
+  bucket_path: "docker-react" # folder not created for you, only when you deploy so it will should be your app name
+  on:
+    branch: master #only deploy when we push code to the master branch
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
